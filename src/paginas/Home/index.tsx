@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import Banner from '../../componentes/Banner';
 import NavBar from '../../componentes/NavBar';
@@ -16,7 +15,7 @@ function App() {
           <h2>A melhor rede de restaurantes!</h2>
           <div>
             <p>seja um parceiro agora:</p>
-            <p>ligue para <a href="callto:99999999999">(99) 99999-999</a></p>
+            <p>ligue para <a href="callto:99999999999">(49) 9 9999-9999</a></p>
           </div>
         </div>
         <img src="/imagens/cozinhar_02.jpg" alt="Um hambúrguer desconstruído" />
