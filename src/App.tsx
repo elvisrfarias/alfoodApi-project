@@ -15,6 +15,6 @@ function App() {
       <Route path="/admin/restaurantes/:id" element={<FormularioRestaurante />} />
     </Routes>
   );
-}
+};
 
 export default App;

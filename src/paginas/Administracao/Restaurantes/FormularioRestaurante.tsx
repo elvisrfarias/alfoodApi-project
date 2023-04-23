@@ -1,11 +1,12 @@
-import { Button, TextField } from "@mui/material"
 import axios from "axios"
-import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import { Button, TextField, Typography, Box } from "@mui/material"
+import { useEffect, useState } from "react"
 import IRestaurante from "../../../interfaces/IRestaurante"
 
 const FormularioRestaurante = () => {
 
+    const [nomeRestaurante, setNomeRestaurante] = useState('')
     const parametros = useParams()
 
     useEffect(() => {
@@ -15,8 +16,7 @@ const FormularioRestaurante = () => {
         }
     }, [parametros])
 
-    const [nomeRestaurante, setNomeRestaurante] = useState('')
-
+    // Submissão do form com condições
     const aoSubmeterForm = (evento: React.FormEvent<HTMLFormElement>) => {
         evento.preventDefault()
 
@@ -35,21 +35,23 @@ const FormularioRestaurante = () => {
                     alert("Restaurante cadastrado com sucesso!")
                 })
         }
-
     }
 
     return (
-        <form onSubmit={aoSubmeterForm}>
-            <TextField
-                value={nomeRestaurante}
-                onChange={evento => setNomeRestaurante(evento.target.value)}
-                label="Nome do Restaurante"
-                variant="standard"
-                fullWidth
-                required
-            />
-            <Button sx={{ marginTop: 1 }} type="submit" fullWidth variant="outlined">Salvar</Button>
-        </form>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Typography component='h1' variant='h6' sx={{ textAlign: 'right' }}>Formulário de restaurante</Typography>
+            <Box component='form' onSubmit={aoSubmeterForm} >
+                <TextField
+                    value={nomeRestaurante}
+                    onChange={evento => setNomeRestaurante(evento.target.value)}
+                    label="Nome do Restaurante"
+                    variant="standard"
+                    fullWidth
+                    required
+                />
+                <Button sx={{ marginTop: 2 }} type="submit" fullWidth variant="outlined">Salvar</Button>
+            </Box>
+        </Box>
     )
 }
 

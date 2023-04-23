@@ -57,7 +57,7 @@ const ListaRestaurantes = () => {
 
     <form onSubmit={buscar}>
       <input type="text" value={busca} onChange={evento => setBusca(evento.target.value)} />
-      <button type='submit'>buscar</button>
+      <button type='submit'>Buscar</button>
     </form>
     {restaurantes?.map(item => <Restaurante restaurante={item} key={item.id} />)}
     {<button onClick={() => carregarDados(paginaAnterior)} disabled={!paginaAnterior}>
