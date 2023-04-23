@@ -1,6 +1,6 @@
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
+import { Button, Link, Paper, TableContainer, Table, TableBody, TableRow, TableCell, TableHead } from "@mui/material"
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link as RouterLink } from "react-router-dom"
 import IRestaurante from "../../../interfaces/IRestaurante"
 import http from "../../../http"
 
@@ -22,38 +22,42 @@ const AdministracaoRestaurantes = () => {
     }
 
     return (
-        <TableContainer component={Paper}>
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>
-                            Nome
-                        </TableCell>
-                        <TableCell>
-                            Editar
-                        </TableCell>
-                        <TableCell>
-                            Excluir
-                        </TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {restaurantes.map(restaurante => <TableRow key={restaurante.id}>
-                        <TableCell>
-                            {restaurante.nome}
-                        </TableCell>
-                        <TableCell>
-                            [ <Link to={`/admin/restaurantes/${restaurante.id}`}>editar</Link> ]
-                        </TableCell>
-                        <TableCell>
-                            <Button variant="outlined" color="error" onClick={() => excluir(restaurante)}>
+        <>
+            {/*Conteúdo do form*/}
+            <TableContainer component={Paper}>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>
+                                Nome
+                            </TableCell>
+                            <TableCell>
+                                Editar
+                            </TableCell>
+                            <TableCell>
                                 Excluir
-                            </Button>
-                        </TableCell>
-                    </TableRow>)}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                            </TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {restaurantes.map(restaurante => <TableRow key={restaurante.id}>
+                            <TableCell>
+                                {restaurante.nome}
+                            </TableCell>
+                            <TableCell>
+                                [ <Link component={RouterLink} to={`/admin/restaurantes/${restaurante.id}`}>editar</Link> ]
+                            </TableCell>
+                            <TableCell>
+                                <Button
+                                    variant="outlined"
+                                    color="error"
+                                    onClick={() => excluir(restaurante)}> Excluir </Button>
+                            </TableCell>
+                        </TableRow>)}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </>
     )
 }
 

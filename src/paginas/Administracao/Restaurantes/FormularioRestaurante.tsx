@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom"
-import { Button, TextField, Typography, Box } from "@mui/material"
+import { Button, TextField, Typography, Box, AppBar, Container, Toolbar, Link, Paper } from "@mui/material"
 import { useEffect, useState } from "react"
 import IRestaurante from "../../../interfaces/IRestaurante"
 import http from "../../../http"
+import { Link as RouterLink } from "react-router-dom"
 
 const FormularioRestaurante = () => {
 
@@ -38,20 +39,29 @@ const FormularioRestaurante = () => {
     }
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Typography component='h1' variant='h6' sx={{ textAlign: 'right' }}>Formulário de restaurante</Typography>
-            <Box component='form' onSubmit={aoSubmeterForm} >
-                <TextField
-                    value={nomeRestaurante}
-                    onChange={evento => setNomeRestaurante(evento.target.value)}
-                    label="Nome do Restaurante"
-                    variant="standard"
-                    fullWidth
-                    required
-                />
-                <Button sx={{ marginTop: 2 }} type="submit" fullWidth variant="outlined">Salvar</Button>
+        <>
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexGrow: 1 }}>
+                <Typography component='h1' variant='h6'>Formulário de restaurante</Typography>
+                <Box component='form' sx={{ width: '50%' }} onSubmit={aoSubmeterForm} >
+                    <TextField
+                        value={nomeRestaurante}
+                        onChange={evento => setNomeRestaurante(evento.target.value)}
+                        label="Nome do Restaurante"
+                        variant="standard"
+                        fullWidth
+                        required
+                    />
+                    <Button
+                        sx={{ marginTop: 2 }}
+                        type="submit"
+                        variant="outlined"
+                        fullWidth
+                    >
+                        Salvar
+                    </Button>
+                </Box>
             </Box>
-        </Box>
+        </>
     )
 }
 
