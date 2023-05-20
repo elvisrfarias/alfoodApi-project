@@ -1,68 +1,68 @@
-import { useParams } from "react-router-dom"
-import { Button, TextField, Typography, Box, AppBar, Container, Toolbar, Link, Paper } from "@mui/material"
-import { useEffect, useState } from "react"
-import IRestaurante from "../../../interfaces/IRestaurante"
-import http from "../../../http"
+import { Box, Typography, TextField, Button } from '@mui/material';
+import { Method } from 'axios';
+import { SyntheticEvent, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import http from '../../../http';
+import IRestaurante from '../../../interfaces/IRestaurante';
 
+const FormRestaurante = () => {
+  const params = useParams();
+  const [nome, setNome] = useState('')
+  const navigate = useNavigate();
 
-const FormularioRestaurante = () => {
-
-    const [nomeRestaurante, setNomeRestaurante] = useState('')
-    const parametros = useParams()
-
-    useEffect(() => {
-        if (parametros.id) {
-            http.get<IRestaurante>(`restaurantes/${parametros.id}/`)
-                .then(resposta => setNomeRestaurante(resposta.data.nome))
-        }
-    }, [parametros])
-
-    // Submissão do form com condições
-    const aoSubmeterForm = (evento: React.FormEvent<HTMLFormElement>) => {
-        evento.preventDefault()
-
-        if (parametros.id) {
-            http.put(`restaurantes/${parametros.id}/`, {
-                nome: nomeRestaurante
-            })
-                .then(() => {
-                    alert("Restaurante atualizado com sucesso!")
-                })
-        } else {
-            http.post('restaurantes/', {
-                nome: nomeRestaurante
-            })
-                .then(() => {
-                    alert("Restaurante cadastrado com sucesso!")
-                })
-        }
+  useEffect(() => {
+    if (params.id) {
+      http.get<IRestaurante>(`/v2/restaurantes/${params.id}/`)
+        .then(resposta => setNome(resposta.data.nome))
     }
+  }, [params])
 
-    return (
-        <>
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexGrow: 1 }}>
-                <Typography component='h1' variant='h6'>Formulário de restaurante</Typography>
-                <Box component='form' sx={{ width: '50%' }} onSubmit={aoSubmeterForm} >
-                    <TextField
-                        value={nomeRestaurante}
-                        onChange={evento => setNomeRestaurante(evento.target.value)}
-                        label="Nome do Restaurante"
-                        variant="standard"
-                        fullWidth
-                        required
-                    />
-                    <Button
-                        sx={{ marginTop: 2 }}
-                        type="submit"
-                        variant="outlined"
-                        fullWidth
-                    >
-                        Salvar
-                    </Button>
-                </Box>
-            </Box>
-        </>
-    )
+  const aoSubmeterForm = (evento: SyntheticEvent) => {
+    evento.preventDefault()
+    let url = '/v2/restaurantes/'
+    let method: Method = 'POST'
+    if (params.id) {
+      method = 'PUT'
+      url += `${params.id}/`
+    }
+    http.request({
+      url,
+      method,
+      data: {
+        nome
+      }
+    }).then(() => {
+      navigate('/dashboard/restaurantes')
+    })    
+  }
+
+  return (
+    <>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Typography component="h1" variant="h6">
+          Formulário de restaurante
+        </Typography>
+        <Box component="form" sx={{ mt: 1 }} onSubmit={aoSubmeterForm}>
+          <TextField
+            required
+            value={nome}
+            onChange={evento => setNome(evento.target.value)}
+            margin='dense'
+            id="nome"
+            label="Nome"
+            type="text"
+            fullWidth />
+          <Button type='submit' fullWidth variant="contained">Salvar</Button>
+        </Box>
+      </Box>
+    </>
+  );
 }
 
-export default FormularioRestaurante
+export default FormRestaurante

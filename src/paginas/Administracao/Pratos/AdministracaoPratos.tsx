@@ -1,7 +1,6 @@
 import { Button, Link, Paper, TableContainer, Table, TableBody, TableRow, TableCell, TableHead } from "@mui/material"
 import { useEffect, useState } from "react"
 import { Link as RouterLink } from "react-router-dom"
-import IRestaurante from "../../../interfaces/IRestaurante"
 import http from "../../../http"
 import IPrato from "../../../interfaces/IPrato"
 
